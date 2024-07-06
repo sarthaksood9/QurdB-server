@@ -44,7 +44,7 @@ export const login = async (req, res) => {
 export const regisrtation = async (reqs, res) => {
 
     try {
-        const { names, email, password } = reqs.body;
+        const { name, email, password } = reqs.body;
         const isExist = await userModel.findOne({ email });
         if (isExist) {
             return res.status(401).json("Email Already exists");
@@ -53,11 +53,13 @@ export const regisrtation = async (reqs, res) => {
             const hashPassword = await bcrypt.hash(password, 10);
 
             const newEmployee = await userModel.create({
-                name: names,
+                name: name,
                 password: hashPassword,
                 email: email,
 
             });
+
+            console.log(newEmployee)
 
             sendToken(newEmployee, 201, res)
 
