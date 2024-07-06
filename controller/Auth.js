@@ -41,10 +41,10 @@ export const login = async (req, res) => {
 
 }
 
-export const regisrtation = async (reqs, res) => {
+export const regisrtation = async (req, res) => {
 
     try {
-        const { name, email, password } = reqs.body;
+        const { name, email, password } = req.body;
         const isExist = await userModel.findOne({ email });
         if (isExist) {
             return res.status(401).json("Email Already exists");
